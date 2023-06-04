@@ -3,7 +3,6 @@ package com.weather.service;
 import com.weather.dto.WeatherDTO;
 import com.weather.entity.Weather;
 import com.weather.repo.WeatherRepo;
-import com.weather.utilities.WeatherExceptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +20,25 @@ public class WeatherService {
     @Autowired
     private WeatherRepo weatherRepo;
 
-    static final String dateFormat = "dd-mm-yyyy";
+    static final String dateFormat = "yyyy-MM-dd";
     public JSONArray getWeatherData(String zipCode, Date date) throws Exception {
+        Weather weather;
         Optional<Weather> optional = weatherRepo.findById(zipCode);
         String getDate;
         try{
-            getDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            getDate = new SimpleDateFormat(dateFormat).format(date);
         }
         catch (Exception e) {
             throw new Exception("Please pass the date in yyyy-MM-dd format");
         }
-        Weather weather = optional.orElse(new WeatherDTO().DTOtoEntity(getLatLong(zipCode)));
+        weather = optional.orElseGet(() -> new WeatherDTO().DTOtoEntity(getLatLong(zipCode)));
         String request = template.getForObject(String.format("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/%f,%f/%s?key=C59KTCHEPH69JVX7N3LD3RC8F&include=days", weather.getLat(), weather.getLongitude(),getDate), String.class);
         weatherRepo.save(weather);
         return new JSONObject(request).getJSONArray("days");
     }
 
     public WeatherDTO getLatLong(String zipCode) {
+        System.out.println(zipCode);
         String request = template.getForObject(String.format("http://api.geonames.org/postalCodeLookupJSON?postalcode=%s&maxRows=1&username=venu", zipCode), String.class);
 
         JSONArray jsonResponse = new JSONObject(request).getJSONArray("postalcodes");
