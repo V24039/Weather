@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Box } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SearchBar } from "./pages/SearchBar";
+import { WeatherPage } from "./pages/Weather";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Box display="flex" flexWrap="wrap" sx={{
+        minHeight: '100vh',
+      }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<SearchBar />} />
+            <Route path="/weather" element={<WeatherPage />} />
+          </Routes>
+        </BrowserRouter>
+      </Box>
+    </Provider>
   );
 }
 
