@@ -4,26 +4,32 @@ import { SearchBar } from "./pages/SearchBar";
 import { WeatherPage } from "./pages/Weather";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import "./App.css";
 
 function App() {
   return (
     <Provider store={store}>
-      <Box
-        display="flex"
-        flexWrap="wrap"
-        sx={{
-          minHeight: "100vh",
-          backgroundImage: "linear-gradient(#02294F, #090E10)",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<SearchBar />} />
-            <Route path="/weather" element={<WeatherPage />} />
-          </Routes>
-        </BrowserRouter>
-      </Box>
+      <div className="app">
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundImage: "linear-gradient(#02294F, #090E10)",
+          }}
+        >
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<SearchBar />} />
+              <Route path="/weather" element={<WeatherPage />} />
+            </Routes>
+          </BrowserRouter>
+        </Box>
+      </div>
     </Provider>
   );
 }
