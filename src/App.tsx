@@ -8,9 +8,15 @@ import { store } from "./redux/store";
 function App() {
   return (
     <Provider store={store}>
-      <Box display="flex" flexWrap="wrap" sx={{
-        minHeight: '100vh',
-      }}>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        sx={{
+          minHeight: "100vh",
+          backgroundImage: "linear-gradient(#02294F, #090E10)",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SearchBar />} />

@@ -1,13 +1,26 @@
 import {
+  Box,
   Container,
   IconButton,
   InputAdornment,
   TextField,
+  Typography,
+  styled,
 } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBackground from "../../static/SearchBackground.jpg";
+
+const CssTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: 35,
+    color: "#1A2027",
+    position: "relative",
+    backgroundColor: "#F3F6F9",
+    border: "5px solid",
+    width: "auto",
+  },
+}));
 
 export const SearchBar = () => {
   const [pincode, setPincode] = useState<string>("");
@@ -22,31 +35,33 @@ export const SearchBar = () => {
     setPincode(event.target.value);
   };
   return (
-    <Container
-      maxWidth={false}
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignContent="center"
+      justifyContent="center"
       sx={{
-        minHeight: "100%",
-        backgroundImage: `url(${SearchBackground})`,
+        width: "100%",
+        backgroundImage: "linear-gradient(#02294F, #090E10)",
         backgroundRepeat: "no-repeat",
-        backgroundColor: "black",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
       }}
     >
-      <Container
-        sx={{
-          backgroundRepeat: "no-repeat",
-          backgroundColor: "rgba(255,255,255)",
-          opacity: '0.7',
-          borderRadius: '10px',
-          mt: "20%"
-        }}
-      >
-        <TextField
-          margin="normal"
+      <Container>
+        <Typography
+          display="grid"
+          justifyItems="center"
+          color="white"
+          fontSize="30px"
+        >
+          Welcome! Please enter a pincode to get the weather. 🌤️🌦️🌧️
+        </Typography>
+      </Container>
+      <Container>
+        <CssTextField
           fullWidth
-          label="Pincode/City Name" 
+          variant="outlined"
+          margin="normal"
+          placeholder="Pincode/City Name"
           onChange={handleChange}
           InputProps={{
             endAdornment: (
@@ -59,6 +74,6 @@ export const SearchBar = () => {
           }}
         />
       </Container>
-    </Container>
+    </Box>
   );
 };
