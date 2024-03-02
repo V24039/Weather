@@ -1,39 +1,46 @@
 import {
+  Backdrop,
   Box,
+  CircularProgress,
   Container,
   IconButton,
   InputAdornment,
-  TextField,
   Typography,
-  styled,
 } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const CssTextField = styled(TextField)(({ theme }) => ({
-  "& .MuiOutlinedInput-root": {
-    borderRadius: 35,
-    color: "#1A2027",
-    position: "relative",
-    backgroundColor: "#F3F6F9",
-    border: "5px solid",
-    width: "auto",
-  },
-}));
+import { StyledTextField } from "../../components";
+import { WeatherContext } from "../../App";
+import { useWeatherAPI } from "../hooks/useWeatherAPI";
 
 export const SearchBar = () => {
-  const [pincode, setPincode] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [error, setErrorMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    console.log(pincode);
-    navigate("/weather");
+  const { _, setWeatherData } = useContext<any>(WeatherContext);
+
+  const { getWeather } = useWeatherAPI();
+
+  const handleSearch = async () => {
+    setLoading(true);
+    const { errorMessage, weatherDeatails } = await getWeather(location);
+    setLoading(false);
+    console.log(errorMessage);
+    if (errorMessage) {
+      setErrorMessage(errorMessage);
+    } else {
+      setWeatherData(weatherDeatails);
+      navigate("/weather");
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPincode(event.target.value);
+    setLocation(event.target.value);
   };
+
   return (
     <Box
       display="flex"
@@ -46,6 +53,12 @@ export const SearchBar = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Container>
         <Typography
           display="grid"
@@ -53,15 +66,15 @@ export const SearchBar = () => {
           color="white"
           fontSize="30px"
         >
-          Welcome! Please enter a pincode to get the weather. 🌤️🌦️🌧️
+          Welcome! Please enter a city name to get the weather. 🌤️🌦️🌧️
         </Typography>
       </Container>
       <Container>
-        <CssTextField
+        <StyledTextField
           fullWidth
           variant="outlined"
           margin="normal"
-          placeholder="Pincode/City Name"
+          placeholder="City Name"
           onChange={handleChange}
           InputProps={{
             endAdornment: (
@@ -73,6 +86,11 @@ export const SearchBar = () => {
             ),
           }}
         />
+        {error && (
+          <Typography sx={{ color: "red" }} textAlign="center">
+            {error}
+          </Typography>
+        )}
       </Container>
     </Box>
   );
