@@ -28,7 +28,6 @@ export const SearchBar = () => {
     setLoading(true);
     const { errorMessage, weatherDeatails } = await getWeather(location);
     setLoading(false);
-    console.log(errorMessage);
     if (errorMessage) {
       setErrorMessage(errorMessage);
     } else {

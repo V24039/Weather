@@ -23,4 +23,5 @@ export const StyledItem = styled(Grid)(({ theme }) => ({
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   padding: "10px",
   textAlign: "left",
+  fontSize: "20px"
 }));

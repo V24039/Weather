@@ -4,11 +4,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SearchBar } from "./pages/SearchBar";
 import { WeatherPage } from "./pages/Weather";
 import "./App.css";
+import { IWeatherValues } from "./pages/const";
 
-export const WeatherContext = createContext({});
+export const WeatherContext = createContext<any>({});
 
 function App() {
-  const [weatherData, setWeatherData] = useState();
+  const [weatherData, setWeatherData] = useState<IWeatherValues>();
 
   return (
     <WeatherContext.Provider value={{ weatherData, setWeatherData }}>
