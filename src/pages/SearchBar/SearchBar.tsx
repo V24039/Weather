@@ -30,7 +30,9 @@ export const SearchBar = () => {
     setLoading(false);
     if (errorMessage) {
       setErrorMessage(errorMessage);
+      setWeatherData("");
     } else {
+      setErrorMessage("");
       setWeatherData(weatherDeatails);
       navigate("/weather");
     }
@@ -41,17 +43,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignContent="center"
-      justifyContent="center"
-      sx={{
-        width: "100%",
-        backgroundImage: "linear-gradient(#02294F, #090E10)",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <Box>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
@@ -59,21 +51,12 @@ export const SearchBar = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Container>
-        <Typography
-          display="grid"
-          justifyItems="center"
-          color="white"
-          fontSize="30px"
-        >
-          Welcome! Please enter a city name to get the weather. 🌤️🌦️🌧️
-        </Typography>
-      </Container>
-      <Container>
         <StyledTextField
           fullWidth
           variant="outlined"
           margin="normal"
           placeholder="City Name"
+          value={location}
           onChange={handleChange}
           InputProps={{
             endAdornment: (

@@ -1,35 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  Box,
-  Grid,
-  IconButton,
-  InputAdornment,
-} from "@mui/material";
-import SearchSharpIcon from "@mui/icons-material/SearchSharp";
+import { Box, Grid } from "@mui/material";
 
-import { StyledItem, StyledTextField } from "../../components";
+import { StyledItem } from "../../components";
 import { WeatherContext } from "../../App";
-import { useWeatherAPI } from "../hooks/useWeatherAPI";
 import { IWeatherValues } from "../const";
 import { Details, HourlyDetails, OtherDetails } from "./components";
+import { SearchBar } from "../SearchBar";
 
 const WeatherPage = () => {
-  const [location, setLocation] = useState<string>("");
   const [weatherDeatails, setWeatherDeatails] = useState<IWeatherValues>();
 
-  const { weatherData, setWeatherData } = useContext<any>(WeatherContext);
-
-  const { getWeather } = useWeatherAPI();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(event.target.value);
-  };
-
-  const handleSearch = async () => {
-    const { weatherDeatails } = await getWeather(location);
-    setWeatherData(weatherDeatails);
-    setWeatherDeatails(weatherDeatails);
-  };
+  const { weatherData } = useContext<any>(WeatherContext);
 
   useEffect(() => {
     setWeatherDeatails(weatherData);
@@ -57,7 +38,7 @@ const WeatherPage = () => {
     } else if (weatherIcon === "13d" || weatherIcon === "13n") {
       return "snowy.jpg";
     } else if (weatherIcon === "50d" || weatherIcon === "50n") {
-      return "fog.jpg";
+      return "fog.png";
     }
   };
 
@@ -76,24 +57,7 @@ const WeatherPage = () => {
         backgroundImage: `url(${getBackground()})`,
       }}
     >
-      <StyledTextField
-        variant="outlined"
-        margin="normal"
-        placeholder="City Name"
-        onChange={handleChange}
-        style={{
-          border: "0px",
-        }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton size="small" onClick={handleSearch}>
-                <SearchSharpIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
+      <SearchBar />
       <Grid container spacing={2} paddingTop="30px" paddingInline="50px">
         <Grid xs={12} md={7} sm={12} paddingInline="5px">
           <Details />

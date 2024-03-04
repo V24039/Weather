@@ -1,46 +1,22 @@
-# Getting Started with Create React App
+# Weather APP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple a weather app built using React with Typescript and MaterialUI
 
-## Available Scripts
+## Working
 
-In the project directory, you can run:
+User needs to enter the city name to fetch the weather upon searching using openWeather free API's current wether and 3 hourly weather are fecthed and displayed.
 
-### `npm start`
+Context API is used to store the weather global and the weather details arw fetched using useContext API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### How to run the project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Clone the project repo and follow the basic react setup
 
-### `npm test`
+- run `npm install` to install the packages
+- run `npm start` to start the project.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## To Do
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Use Autocomplete to fetch the city name and display in the dropdown
+- Build a pop to show five days weather when clicked on "Show 5 days"
+- Fetch a weather on a particular day.

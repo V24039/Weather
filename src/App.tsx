@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
 import { Box } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { SearchBar } from "./pages/SearchBar";
 import { WeatherPage } from "./pages/Weather";
 import "./App.css";
 import { IWeatherValues } from "./pages/const";
+import { HomePage } from "./pages/HomePage/HomePage";
 
 export const WeatherContext = createContext<any>({});
 
@@ -27,7 +27,7 @@ function App() {
       >
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<SearchBar />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/weather" element={<WeatherPage />} />
           </Routes>
         </BrowserRouter>

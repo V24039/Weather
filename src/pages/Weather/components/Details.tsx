@@ -21,7 +21,7 @@ export const Details = () => {
           {weatherData?.main?.temp}
           <WiCelsius />
         </Typography>
-        <Typography fontSize="20px">
+        <Typography fontSize="20px" sx={{textTransform:"capitalize"}}>
           {weatherData?.weather[0]?.main} : {weatherData?.weather[0]?.description}
         </Typography>
         <Typography fontSize="20px">
@@ -32,6 +32,7 @@ export const Details = () => {
       <img
         src={`/icons/${weatherData?.weather[0]?.icon}.png`}
         alt="weatherIcon"
+        loading="eager"
       />
     </StyledItem>
   );
